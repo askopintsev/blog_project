@@ -1,0 +1,38 @@
+{% extends 'engine/main.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<h1>Blog</h1>
+<div class="posts">
+    {% if not posts %}
+    <b>Посты не найдены</b>
+    {% else %}
+    {% for post in posts %}
+    <header>
+        <h3><a href="http://127.00.00.1:8000/post/{{post.id}}">{{post.title}}</a></h3>
+    </header>
+    <p>posted {{post.post_date}}</p>
+    <hr>
+    {% endfor %}
+    {% endif %}
+
+    <div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="?page=1"><< 1</a>
+            <a href="?page={{ posts.previous_page_number }}">предыдущая</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">следующая</a>
+            <a href="?page={{ posts.paginator.num_pages }}">последняя >></a>
+        {% endif %}
+    </span>
+    </div>
+</div>
+{% endblock %}
