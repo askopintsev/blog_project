@@ -12,7 +12,16 @@
     <header>
         <h3><a href="http://127.00.00.1:8000/post/{{post.id}}">{{post.title}}</a></h3>
     </header>
-    <p>posted {{post.post_date}}</p>
+    {% with post.comments.count as total_comments %}
+    <p>
+        <b>
+        {{ total_comments }} comment{{ total_comments|pluralize }}
+        </b>
+    </p>
+    {% endwith %}
+    <p>
+        posted {{post.post_date}}
+    </p>
     <hr>
     {% endfor %}
     {% endif %}

@@ -1,0 +1,15 @@
+version: "3.9"
+   
+services:
+    web:
+      build: .
+      environment:
+        MYENV: LOFT
+        SECRET: 5608(*=s3j&!()lvq4xnyf25fo$$=v%jjr3jveualh(&0n&q_-g
+      volumes:
+        - .:/code
+      command: bash -c "python manage.py migrate
+                     && python manage.py loaddata ./engine/fixtures/initial_data.json
+                     && python manage.py runserver 0.0.0.0:8000"
+      ports:
+        - "8000:8000"
